@@ -1,0 +1,35 @@
+{
+  "name": "justbetter/magento2-image-optimizer",
+  "description": "Magento 2 Image optimizer wrapper build on https://github.com/spatie/image-optimize",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+    "MIT"
+  ],
+  "keywords": [
+    "justbetter",
+    "magento 2",
+    "image-optimizer"
+  ],
+  "require": {
+    "php": ">=7.0",
+    "magento/framework": "*",
+    "spatie/image-optimizer": "^1.0"
+  },
+  "authors": [
+    {
+      "name": "Rakhal Imming",
+      "email": "rakhal@justbetter.nl",
+      "homepage": "https://justbetter.nl",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "JustBetter\\ImageOptimizer\\": ""
+    },
+    "files": [
+      "registration.php"
+    ]
+  }
+}

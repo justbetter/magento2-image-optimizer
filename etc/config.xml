@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Store/etc/config.xsd">
+    <default>
+        <image_optimizer>
+            <general>
+                <enabled>1</enabled>
+                <log>0</log>
+            </general>
+        </image_optimizer>
+    </default>
+</config>
