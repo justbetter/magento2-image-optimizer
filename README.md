@@ -41,7 +41,7 @@ brew install gifsicle
 - Options for the module are defined in the backend under Stores > Configuration > Justbetter > Image optimizer configuration.
 - Currently the only option available is to log the compression.
 
-## Compability
+## Compatibility
 The module is tested on magento version 2.2.x with Spatie image optimizer version 1.0.x
 
 ## Ideas, bugs or suggestions?
