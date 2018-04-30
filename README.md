@@ -7,6 +7,9 @@ This Magento 2 module is a wrapper based on the package [Spatie Image optimizer]
 - `bin/magento module:enable JustBetter_ImageOptimizer`
 - `bin/magento setup:upgrade && bin/magento setup:static-content:deploy`
 
+### Optimize all images in console
+- run `bin/magento justbetter:imageoptimizer:optimizeall` to resize all images in the media folder.
+
 ### Optimization tools
 
 The package will use these optimizers if they are present on your system:
@@ -49,7 +52,7 @@ Please create a [issue](https://github.com/justbetter/magento2-image-optimizer/i
 
 ## Todo
 - Configurable options for compression
-- Compress all library images in console command
+- ~~Compress all library images in console command~~
 
 ## License
 [MIT](LICENSE)
