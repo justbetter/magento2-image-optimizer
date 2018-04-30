@@ -3,4 +3,11 @@
     <type name="Magento\MediaStorage\Helper\File\Media">
         <plugin name="JustBetter_ImageOptimizer::optimize_images" type="JustBetter\ImageOptimizer\Plugin\Media\Proxy" sortOrder="10"/>
     </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="justbetter_optimize_images" xsi:type="object">JustBetter\ImageOptimizer\Console\Command\OptimizeImagesCommand</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
