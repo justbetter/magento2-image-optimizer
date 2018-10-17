@@ -21,6 +21,40 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
+            <group id="jpg" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Jpg compression options</label>
+                <field id="jpg_compression" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Jpg Compression ratio images</label>
+                    <comment><![CDATA[This will store the image with % quality. <br/><strong>Note: 85% seems to <a href="https://webmasters.stackexchange.com/questions/102094/google-pagespeed-how-to-satisfy-the-new-image-compression-rules" target="_blank">satisfy Google's Pagespeed compression rules</a></strong>]]></comment>
+                </field>
+                <field id="jpg_strip_all" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Strip all</label>
+                    <comment>This strips out all text information such as comments and EXIF data</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="jpg_all_progressive" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>All progressive</label>
+                    <comment>This will make sure the resulting image is a progressive one, meaning it can be downloaded using multiple passes of progressively higher details.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="png" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>PNG compression options</label>
+                <field id="png_quality_min_max" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Quality min max</label>
+                    <comment>Min and max are numbers in range 0 (worst) to 100 (perfect), similar to JPEG.</comment>
+                </field>
+                <field id="png_interlace" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>PNG Interlace type</label>
+                    <comment><![CDATA[Interlace type (0-1) <br/> <a href="https://linux.die.net/man/1/optipng" target="_blank">Check the documentation here</a>]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="png_optimization_level" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>PNG Optimization level</label>
+                    <comment><![CDATA[Level 2 to 7 <br/> Note: The optimization levels 2 and higher enable multiple IDAT compression trials; the higher the level, the more trials. <a href="https://linux.die.net/man/1/optipng" target="_blank">Check the documentation here</a>]]></comment>
+                    <source_model>JustBetter\ImageOptimizer\Model\Config\OptimizationLevel</source_model>
+                </field>
+            </group>
         </section>
     </system>
 </config>
