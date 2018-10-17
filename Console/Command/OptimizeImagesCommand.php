@@ -1,14 +1,17 @@
 <?php
+
 namespace JustBetter\ImageOptimizer\Console\Command;
 
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\Filesystem;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use JustBetter\ImageOptimizer\Helper\Data;
+use Exception;
 use Psr\Log\LoggerInterface;
+use RecursiveDirectoryIterator;
+use Magento\Framework\Filesystem;
+use JustBetter\ImageOptimizer\Helper\Data;
+use Symfony\Component\Console\Command\Command;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Symfony\Component\Console\Input\InputInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class OptimizeImagesCommand
@@ -17,14 +20,14 @@ use Spatie\ImageOptimizer\OptimizerChainFactory;
  */
 class OptimizeImagesCommand extends Command
 {
-    protected $_includeFiles = [
+    protected $includeFiles = [
         'jpeg',
         'jpg',
         'png',
         'gif'
     ];
 
-    protected $_excludeDirs = [
+    protected $excludeDirs = [
         '(cache)',
         '(tmp)',
         '(.thumbs)'
@@ -33,7 +36,7 @@ class OptimizeImagesCommand extends Command
     /**
      * @var Filesystem
      */
-    protected $_filesystem;
+    protected $filesystem;
 
     /**
      * @var LoggerInterface
@@ -53,17 +56,16 @@ class OptimizeImagesCommand extends Command
     /**
      * OptimizeImagesCommand constructor.
      *
-     * @param Filesystem      $_filesystem
+     * @param Filesystem      $filesystem
      * @param LoggerInterface $logger
      * @param Data            $imageOptimizerHelper
      */
     public function __construct(
-        Filesystem $_filesystem,
+        Filesystem $filesystem,
         LoggerInterface $logger,
         Data $imageOptimizerHelper
-    )
-    {
-        $this->_filesystem = $_filesystem;
+    ) {
+        $this->filesystem = $filesystem;
         $this->imageOptimizerHelper = $imageOptimizerHelper;
         $this->config = $imageOptimizerHelper->collectModuleConfig();
         $this->logger= $logger;
@@ -80,9 +82,9 @@ class OptimizeImagesCommand extends Command
     {
         $output->writeln('<info>Start Optimize all images</info>');
 
-        $dir = new \RecursiveDirectoryIterator(
-            $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath(),
-            \RecursiveDirectoryIterator::SKIP_DOTS
+        $dir = new RecursiveDirectoryIterator(
+            $this->filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath(),
+            RecursiveDirectoryIterator::SKIP_DOTS
         );
 
         $this->loopThrougDir($dir, $input, $output);
@@ -91,20 +93,19 @@ class OptimizeImagesCommand extends Command
     protected function loopThrougDir($dir, InputInterface $input, OutputInterface $output)
     {
         foreach ($dir as $fullPath => $fileinfo) {
-            if ($fileinfo->isDir()){
+            if ($fileinfo->isDir()) {
                 $this->loopThrougDir(
-                    new \RecursiveDirectoryIterator(
+                    new RecursiveDirectoryIterator(
                         $fileinfo->getPathName(),
-                        \RecursiveDirectoryIterator::SKIP_DOTS
+                        RecursiveDirectoryIterator::SKIP_DOTS
                     ),
                     $input,
                     $output
                 );
             }
 
-            if (preg_match('~\.('.implode('|',$this->_includeFiles).')$~', $fullPath) &&
-                ! preg_match('/'.implode('|', $this->_excludeDirs).'/', $fullPath)) {
-
+            if (preg_match('~\.('.implode('|', $this->includeFiles).')$~', $fullPath) &&
+                ! preg_match('/'.implode('|', $this->excludeDirs).'/', $fullPath)) {
                 $this->optimizeImage($fullPath, $input, $output);
             }
         }
@@ -121,7 +122,7 @@ class OptimizeImagesCommand extends Command
         try {
             $optimizerChain->optimize($image);
             $output->writeln('<info>Image: '.$image.' is optimized</info>');
-        } catch(\Exception $e) {
+        } catch (Exception $e) {
             $output->writeln('<error>Image not optimized, error: '.$e->getMessage());
         }
     }
