@@ -2,10 +2,10 @@
 
 namespace JustBetter\ImageOptimizer\Plugin;
 
-use JustBetter\ImageOptimizer\Helper\Data;
-use Magento\MediaStorage\Helper\File\Media as MagentoStorageMedia;
 use Psr\Log\LoggerInterface;
+use JustBetter\ImageOptimizer\Helper\Data;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Magento\MediaStorage\Helper\File\Media as MagentoStorageMedia;
 
 class Media
 {
@@ -33,8 +33,7 @@ class Media
     public function __construct(
         LoggerInterface $logger,
         Data $imageOptimizerHelper
-    )
-    {
+    ) {
         $this->imageOptimizerHelper = $imageOptimizerHelper;
         $this->config = $imageOptimizerHelper->collectModuleConfig();
         $this->logger= $logger;
@@ -51,7 +50,7 @@ class Media
             $path = ltrim($path, '\\/');
             $fullPath = $mediaDirectory . '/' . $path;
 
-            $optimizerChain = OptimizerChainFactory::create();
+            $optimizerChain = $this->imageOptimizerHelper->customOptimizerChain();
 
             if (array_key_exists('log', $this->config) && $this->config['log']) {
                 $optimizerChain = $optimizerChain->useLogger($this->logger);

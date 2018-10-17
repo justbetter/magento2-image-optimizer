@@ -6,6 +6,16 @@
                 <enabled>1</enabled>
                 <log>0</log>
             </general>
+            <jpg>
+                <jpg_compression>85</jpg_compression>
+                <jpg_strip_all>1</jpg_strip_all>
+                <jpg_all_progressive>1</jpg_all_progressive>
+            </jpg>
+            <png>
+                <png_quality_min_max>65-80</png_quality_min_max>
+                <png_interlace>0</png_interlace>
+                <png_optimization_level>2</png_optimization_level>
+            </png>
         </image_optimizer>
     </default>
 </config>

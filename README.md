@@ -1,6 +1,6 @@
 # Magento 2 Image Optimizer
 
-This Magento 2 module is a wrapper based on the package [Spatie Image optimizer](https://github.com/spatie/image-optimizer). 
+This Magento 2 module is a wrapper based on the package [Spatie Image optimizer](https://github.com/spatie/image-optimizer).
 
 ## Installation
 - `composer require justbetter/magento2-image-optimizer`
@@ -8,7 +8,14 @@ This Magento 2 module is a wrapper based on the package [Spatie Image optimizer]
 - `bin/magento setup:upgrade && bin/magento setup:static-content:deploy`
 
 ### Optimize all images in console
-- run `bin/magento justbetter:imageoptimizer:optimizeall` to resize all images in the media folder.
+- Run `bin/magento justbetter:imageoptimizer:optimizeall` to resize all images in the media folder.
+- Additional parameters (will overwrite any option in the magento config):
+    - `--jpg_compression="85"`
+    - `--jpg_strip_all="1"`
+    - `--jpg_all_progressive="0"`
+    - `--png_quality_min_max="10-15"`
+    - `--png_interlace="0"`
+    - `--png_optimization_level="8"`
 
 ### Optimization tools
 
@@ -42,7 +49,10 @@ brew install gifsicle
 
 ## Configuration
 - Options for the module are defined in the backend under Stores > Configuration > JustBetter > Image optimizer configuration.
-- Currently the only option available is to log the compression.
+- Possible options:
+    - Log the compression in the system.log
+    - Change compression of jpg files
+    - Change compression of png files
 
 ## Compatibility
 The module is tested on magento version 2.2.x with Spatie image optimizer version 1.0.x
@@ -51,7 +61,7 @@ The module is tested on magento version 2.2.x with Spatie image optimizer versio
 Please create a [issue](https://github.com/justbetter/magento2-image-optimizer/issues) or a [pull request](https://github.com/justbetter/magento2-image-optimizer/pulls).
 
 ## Todo
-- Configurable options for compression
+- ~~Configurable options for compression~~
 - ~~Compress all library images in console command~~
 
 ## License

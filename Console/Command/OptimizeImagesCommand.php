@@ -6,9 +6,10 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use RecursiveDirectoryIterator;
 use Magento\Framework\Filesystem;
+use Spatie\ImageOptimizer\OptimizerChain;
 use JustBetter\ImageOptimizer\Helper\Data;
 use Symfony\Component\Console\Command\Command;
-use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -74,8 +75,29 @@ class OptimizeImagesCommand extends Command
 
     protected function configure()
     {
+        /**
+         *   Possible parameters to overwrite magento 2 options
+         *  'compression' => 'Jpeg Compression (number 85)',
+         *  'strip_all' => 'Jpeg Strip all (true or false)',
+         *  'all_progressive' => 'Jpeg All progressive (true or false)',
+         *  'quality_min_max' => 'PNG min and max quality (e.g. 65-80)',
+         *  'interlace' => 'PNG interlace (true or false)',
+         *  'optimization_level' => 'PNG optimization level (0 to 7)',
+         */
+        foreach ($this->imageOptimizerHelper->cliConfigKeys as $name => $value) {
+            $options[] =  new InputOption(
+                $name,
+                null,
+                InputOption::VALUE_OPTIONAL,
+                $value
+            );
+        }
+
         $this->setName('justbetter:imageoptimizer:optimizeall')
-                ->setDescription('Re-save all images with spatie package');
+            ->setDescription('Re-save all images with spatie package')
+            ->setDefinition($options);
+
+        parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -113,7 +135,13 @@ class OptimizeImagesCommand extends Command
 
     protected function optimizeImage($image, InputInterface $input, OutputInterface $output)
     {
-        $optimizerChain = OptimizerChainFactory::create();
+        $overWriteOptions = [];
+
+        foreach ($this->imageOptimizerHelper->cliConfigKeys as $name => $notused) {
+            $overWriteOptions[$name] = $input->getOption($name);
+        }
+
+        $optimizerChain = $this->imageOptimizerHelper->customOptimizerChain($overWriteOptions);
 
         if (array_key_exists('log', $this->config) && $this->config['log']) {
             $optimizerChain = $optimizerChain->useLogger($this->logger);
