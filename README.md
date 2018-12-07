@@ -64,8 +64,8 @@ Please create a [issue](https://github.com/justbetter/magento2-image-optimizer/i
 - ~~Configurable options for compression~~
 - ~~Compress all library images in console command~~
 
-## Abous Us
-We're a innovative development agency from The Netherlands building awesome websites, webshops and web applications with Laravel and Magento. Check out our website [justbetter.nl](https://justbetter.nl) and our open source projects at [GitHub](https://github.com/justbetter)
+## About us
+We’re a innovative development agency from The Netherlands building awesome websites, webshops and web applications with Laravel and Magento. Check out our website [justbetter.nl](https://justbetter.nl) and our [open source projects](https://github.com/justbetter).
 
 ## License
 [MIT](LICENSE)
